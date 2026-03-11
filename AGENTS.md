@@ -1,8 +1,8 @@
 # Repository expectations
 
 - Do not update AGENTS.md without permission
-- Do not update `docs/references/casaigo-passport-schema.md` without permission
-- Do not update `docs/references/casaigo-passport-architecture.md`
+- Do not update `docs/references/schema.md` without permission
+- Do not update `docs/references/architecture.md`
   without permission
 - Except for plan phase, all work for a user story should be done on a new git worktree separate from the main tree.
 
@@ -81,8 +81,8 @@ Must include:
 - Non-goals (per story)
 - Definition of Done (per story)
 - Parallelization analysis (per story)
-- Proposed changes to `docs/casaigo-passport-schema.md` (per story)
-- Proposed changes to `docs/casaigo-passport-architecture.md` (per story)
+- Proposed changes to `docs/schema.md` (per story)
+- Proposed changes to `docs/architecture.md` (per story)
 
 #### Parallelization Analysis
 
@@ -113,6 +113,8 @@ Stop and alert if:
 - Required context missing
 - Spec diverges from feature.md
 - Sensitive files touched without mention in feature.md
+
+#### Only Allowed Skills:
 
 ---
 
@@ -146,6 +148,8 @@ Stop and alert if:
 - Attempt to bypass tests or lint
 - Schema change without approval
 - Deleting QA tests
+
+#### Only Allowed Skills:
 
 ---
 
@@ -229,9 +233,11 @@ Stop and alert if:
 - QA deletes or rewrites existing tests
 - Required output sections missing
 
+#### Only Allowed Skills:
+
 ---
 
-### Phase 4 - Review Agent
+### Phase 4 - Story-Review Agent
 
 Purpose: final repo-quality pass and PR packaging.
 
@@ -290,3 +296,67 @@ Stop and alert/ask human if:
 - Any Medium severity issue exists and is not marked `MEDIUM (ACCEPTED)` with required justification
 - `spec.md` appears to have changed without human approval / without updating `last_decision_hash`
 - State files are missing or incomplete
+
+#### Only Allowed Skills:
+
+### Phase 5 - PR-Review Agent
+
+Purpose: final repo-quality pass and PR packaging.
+
+#### Inputs
+
+- `{name_of_feature}/feature.md`
+- `{name_of_feature}/spec.md`
+- `{name_of_feature}/{task_id}/decision.md`
+- `{name_of_feature}/{task_id}/progress.md`
+- Diff
+
+#### Responsibilities
+
+- Verify the change matches acceptance criteria in `feature.md` and the implementation constraints in `spec.md`.
+- Verify QA rules were followed (QA appended tests only; no QA edits to production code).
+- Ensure repo standards are met:
+  - formatting/lint passes (run the repo’s standard commands)
+  - unit/integration tests pass (run the repo’s standard commands)
+  - typecheck/build passes if applicable
+- Validate no obvious policy violations:
+  - secrets committed
+  - disabling auth/permissions checks
+  - broadening access unintentionally
+  - adding large debug logging or noisy prints
+- Confirm state files are complete and consistent:
+  - `progress.md` updated and Status is `Done`
+  - `decision.md` contains rationale for any non-obvious changes
+  - `last_decision_hash` matches approved `spec.md`
+
+#### Required Output
+
+- On User Story Completion
+  - create new commit
+  - merge branch back into starting branch (NOT MAIN)
+
+- On Feature Completion:
+  - PR title
+  - PR description with:
+    - summary of change
+    - list of files changed
+    - how to test (commands)
+    - QA summary (High/Med/Low counts; note any `MEDIUM (ACCEPTED)`)
+    - rollout notes (or link to `release.md` if present)
+  - Merge checklist (bullets)
+
+#### Constraints
+
+- Review Agent should not make large architectural changes. If major issues are found, file findings for Fix phase.
+
+#### Stop Conditions
+
+Stop and alert/ask human if:
+
+- Tests or lint cannot be made to pass without non-trivial code changes
+- Any High severity QA issue exists
+- Any Medium severity issue exists and is not marked `MEDIUM (ACCEPTED)` with required justification
+- `spec.md` appears to have changed without human approval / without updating `last_decision_hash`
+- State files are missing or incomplete
+
+#### Only Allowed Skills:
