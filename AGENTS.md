@@ -239,7 +239,7 @@ Stop and alert if:
 
 ### Phase 4 - Story-Review Agent
 
-Purpose: final repo-quality pass and PR packaging.
+Purpose: Final User story review before commit
 
 #### Inputs
 
@@ -251,7 +251,7 @@ Purpose: final repo-quality pass and PR packaging.
 
 #### Responsibilities
 
-- Verify the change matches acceptance criteria in `feature.md` and the implementation constraints in `spec.md`.
+- Verify the change matches acceptance criteria in `feature.md` and the implementation constraints in `spec.md` for the user story.
 - Verify QA rules were followed (QA appended tests only; no QA edits to production code).
 - Ensure repo standards are met:
   - formatting/lint passes (run the repo’s standard commands)
@@ -271,21 +271,11 @@ Purpose: final repo-quality pass and PR packaging.
 
 - On User Story Completion
   - create new commit
-  - merge branch back into starting branch (NOT MAIN)
-
-- On Feature Completion:
-  - PR title
-  - PR description with:
-    - summary of change
-    - list of files changed
-    - how to test (commands)
-    - QA summary (High/Med/Low counts; note any `MEDIUM (ACCEPTED)`)
-    - rollout notes (or link to `release.md` if present)
-  - Merge checklist (bullets)
+  - merge branch back into starting branch (NEVER MAIN/MASTER)
 
 #### Constraints
 
-- Review Agent should not make large architectural changes. If major issues are found, file findings for Fix phase.
+- Review Agent should not make large architectural changes. If major issues are found, file findings for Implementer phase.
 
 #### Stop Conditions
 
